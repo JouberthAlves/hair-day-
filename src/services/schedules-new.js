@@ -1,13 +1,18 @@
 import { apiConfig } from "./api-config.js";
 
-export async function scheduleNew({id, name, when}) {
+export async function scheduleNew({ id, name, when }) {
   try {
     await fetch(`${apiConfig.baseURL}/schedules`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({id, name, when})
+      // Forçamos o id a ser uma String antes de enviar para o banco
+      body: JSON.stringify({
+        id: String(id),
+        name,
+        when
+      })
     })
 
     alert("Agendamento realizado com sucesso")
